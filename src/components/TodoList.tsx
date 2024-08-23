@@ -1,52 +1,56 @@
-import { useState } from 'react';
-import TodoItem from './TodoItem';
+import { useState } from "react";
+import TodoItem from "./TodoItem";
 
 interface TodoItem {
-    id: number,
-    task: string,
-    checked: boolean
+    id: number;
+    task: string;
+    checked: boolean;
 }
 
 function TodoList() {
     const [todoList, setTodoList] = useState<TodoItem[]>([
         {
             id: 1,
-            task: 'coding',
-            checked: false
+            task: "coding",
+            checked: true,
         },
         {
             id: 2,
-            task: 'swimming',
-            checked: false
-        }
+            task: "swimming",
+            checked: false,
+        },
     ]);
-  
-    const [task, setTask] = useState<string>('');
+
+    const [task, setTask] = useState<string>("");
 
     function addItem() {
-        if (task.trim() === '') return;
+        if (task.trim() === "") return;
         const newItem = {
             id: Date.now(),
             task,
-            checked: false 
+            checked: false,
         };
         setTodoList([...todoList, newItem]);
-        setTask('');
+        setTask("");
     }
 
     function removeItem(id: number) {
-        setTodoList(todoList.filter((_, index) => index !== id));
+        setTodoList(todoList.filter(item => item.id !== id));
     }
 
     function toggleChecked(id: number) {
-        setTodoList(todoList.map(item =>
-            item.id === id ? { ...item, checked: !item.checked } : item
-        ));
+        setTodoList(
+            todoList.map((item) =>
+                item.id === id ? { ...item, checked: !item.checked } : item
+            )
+        );
     }
 
     function deleteCheckedTasks() {
-        setTodoList(todoList.filter(item => !item.checked));
+        setTodoList(todoList.filter((item) => !item.checked));
     }
+
+    const hasCheckedTasks = todoList.some((item) => item.checked);
 
     return (
         <>
@@ -58,17 +62,29 @@ function TodoList() {
                 <button onClick={() => addItem()}>Add</button>
             </section>
             <div className='list-container'>
-                {todoList.map((item) => (
-                    <TodoItem
-                        id={item.id}
-                        task={item.task}
-                        checked={item.checked}
-                        removeItem={() => removeItem(item.id)}
-                        toggleChecked={() => toggleChecked(item.id)}
-                    />
-                ))}
+                {todoList.length > 0 ? (
+                    todoList.map((item) => (
+                        <TodoItem
+                            key={item.id}
+                            id={item.id}
+                            task={item.task}
+                            checked={item.checked}
+                            removeItem={() => removeItem(item.id)}
+                            toggleChecked={() => toggleChecked(item.id)}
+                        />
+                    ))
+                ) : (
+                    <p>No tasks to display 🙂</p>
+                )}
             </div>
-            <button onClick={deleteCheckedTasks}>Delete Checked Tasks</button>
+            {hasCheckedTasks && (
+                <button
+                    className='removeAllBtn'
+                    onClick={deleteCheckedTasks}
+                >
+                    Delete Checked Tasks
+                </button>
+            )}
         </>
     );
 }

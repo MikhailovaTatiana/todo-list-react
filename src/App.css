@@ -1,15 +1,14 @@
-* {
-    box-sizing: border-box;
-}
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+  }
 
 .app {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-main {
-    width: 50%;
 }
 
 .input-container {
@@ -19,6 +18,12 @@ main {
     gap: 1rem;
 }
 
+input[type=checkbox] {
+    margin: 0;
+    width: 1.3em;
+    height: 1.3em;
+    font-size: 1rem;
+}
 
 .list-container {
 
@@ -31,6 +36,6 @@ main {
     height: 2rem;
 }
 
-button {
-
+button.removeAllBtn {
+    margin-top: 2rem;
 }
