@@ -1,4 +1,5 @@
 export interface ItemProps {
-    task: string;
-    removeItem: () => void;
+    id: number,
+    task: string,
+    removeItem: () => void
 }

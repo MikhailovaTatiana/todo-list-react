@@ -1,13 +1,23 @@
 import { useState } from 'react';
 import TodoItem from './TodoItem';
 
+interface TodoItem {
+    id: number;
+    task: string;
+}
+
 function TodoList() {
-    const [todoList, setTodoList] = useState<string[]>(['coding', 'swimming']);
+    const [todoList, setTodoList] = useState<TodoItem[]>([
+        { id: 1, task: 'coding' },
+        { id: 2, task: 'swimming' }
+    ]);
+  
     const [task, setTask] = useState<string>('');
 
     function addItem() {
         if (task.trim() === '') return;
-        setTodoList([...todoList, task]);
+        const newItem = { id: Date.now(), task };
+        setTodoList([...todoList, newItem]);
         setTask('');
     }
 
@@ -25,11 +35,12 @@ function TodoList() {
                 <button onClick={() => addItem()}>Add</button>
             </section>
             <div className='list-container'>
-                {todoList.map((item, i) => (
+                {todoList.map((item) => (
                     <TodoItem
-                        key={i}
-                        task={item}
-                        removeItem={() => removeItem(i)}
+                        key={item.id}
+                        task={item.task}
+                        id={item.id}
+                        removeItem={() => removeItem(item.id)}
                     />
                 ))}
             </div>
