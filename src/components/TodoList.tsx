@@ -16,7 +16,7 @@ function TodoList() {
     function addItem() {
         if (task.trim() === "") return;
         const newItem = {
-            id: Date.now(),
+            id: Date.now(), // UUID
             task,
             checked: false,
         };
@@ -42,6 +42,8 @@ function TodoList() {
 
     const hasCheckedTasks = todoList.some((item) => item.checked);
 
+    const uncheckedTasks = todoList.filter(item => item.checked === false);
+
     return (
         <>
             <section className='input-container'>
@@ -53,16 +55,19 @@ function TodoList() {
             </section>
             <div className='list-container'>
                 {todoList.length > 0 ? (
-                    todoList.map((item) => (
-                        <TodoItem
-                            key={item.id}
-                            id={item.id}
-                            task={item.task}
-                            checked={item.checked}
-                            removeItem={() => removeItem(item.id)}
-                            toggleChecked={() => toggleChecked(item.id)}
-                        />
-                    ))
+                    <>
+                        <p className="counter">{uncheckedTasks.length} tasks left</p>
+                        {todoList.map((item) => (
+                            <TodoItem
+                                key={item.id}
+                                id={item.id}
+                                task={item.task}
+                                checked={item.checked}
+                                removeItem={() => removeItem(item.id)}
+                                toggleChecked={() => toggleChecked(item.id)}
+                            />
+                        ))}
+                    </>
                 ) : (
                     <p>No tasks to display 🙂</p>
                 )}

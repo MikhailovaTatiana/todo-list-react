@@ -29,6 +29,10 @@ input[type=checkbox] {
     font-family: inherit;
 }
 
+.counter {
+    color: blue;
+}
+
 .item-container {
     display: flex;
     justify-content: space-between;
