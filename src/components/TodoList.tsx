@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TodoItem from "./TodoItem";
+import { taskData } from "../utils/taskData";
 
 interface TodoItem {
     id: number;
@@ -8,18 +9,7 @@ interface TodoItem {
 }
 
 function TodoList() {
-    const [todoList, setTodoList] = useState<TodoItem[]>([
-        {
-            id: 1,
-            task: "coding",
-            checked: true,
-        },
-        {
-            id: 2,
-            task: "swimming",
-            checked: false,
-        },
-    ]);
+    const [todoList, setTodoList] = useState<TodoItem[]>(taskData);
 
     const [task, setTask] = useState<string>("");
 
