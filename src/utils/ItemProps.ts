@@ -1,5 +1,7 @@
 export interface ItemProps {
     id: number,
     task: string,
-    removeItem: () => void
+    checked: boolean,
+    removeItem: () => void,
+    toggleChecked: () => void
 }
